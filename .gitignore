@@ -1,0 +1,15 @@
+# Passwords and environment settings
+.env
+.env.*
+!.env.example
+
+# Python virtual environment
+.venv/
+__pycache__/
+*.pyc
+
+# Private NiFi configuration backup
+nifi/flow.json.gz
+
+# Mac system files
+.DS_Store
