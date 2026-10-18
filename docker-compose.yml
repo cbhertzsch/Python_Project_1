@@ -1,0 +1,36 @@
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: python_project_postgres
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U projectuser -d project1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  nifi:
+    image: apache/nifi:2.6.0
+    container_name: python_project_nifi
+    ports:
+      - "8443:8443"
+    environment:
+      SINGLE_USER_CREDENTIALS_USERNAME: admin
+      SINGLE_USER_CREDENTIALS_PASSWORD: "ProjectNifi2026Secure!"
+    volumes:
+      - ./data:/opt/nifi/nifi-current/project-data
+      - ./sql:/opt/nifi/nifi-current/project-sql
+      - ./nifi:/opt/nifi/nifi-current/project-config
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+
