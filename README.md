@@ -33,7 +33,7 @@ The pipeline uses ListFile and RouteOnAttribute to identify project files. I als
 
 The conversion test successfully processed all three CSV files with zero failures. I inspected the converted customer data to verify that the JSON structure and fields were preserved.
 
-The PostgreSQL tables were populated separately. The NiFi-to-PostgreSQL loading stage has not yet been demonstrated.
+I also connected Apache NiFi to my PostgreSQL database using PutDatabaseRecord. I tested loading the customer, product, and order files into their tables. I ran into a few issues with the database connection and how NiFi was reading the order dates, but I was able to work through them. After testing, I confirmed that each PostgreSQL table contained 1,000 records.
 
 ## Project Structure
 
@@ -43,6 +43,8 @@ The PostgreSQL tables were populated separately. The NiFi-to-PostgreSQL loading 
 - `nifi/` – NiFi configuration backup
 - `docs/` – Project documentation
 - `docker-compose.yml` – Docker container configuration
+- `requirements.txt` – Lists the Python packages needed for the project.
+- `.env.example` – Shows the database settings needed to run the project without sharing my actual password.
 - `README.md` – Project overview and instructions
 
 ## Running the Project
